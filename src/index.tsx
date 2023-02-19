@@ -1,9 +1,8 @@
 import {render} from "react-dom";
 import s from './style.module.scss'
+import App from "./App";
 
 render(
-    <div className={s.btn}>
-        dasdsadasdsa
-    </div>,
+    <App/>,
     document.getElementById('root')
 )
