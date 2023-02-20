@@ -1,14 +1,29 @@
-import React from 'react';
-import s from "./style.module.scss";
-import './index.scss'
+import React, {Suspense, useContext, useState} from 'react';
+import './styles/index.scss'
+import {Link, Route, Routes} from "react-router-dom";
+import {AboutPageAsync} from "../pages/AboutPage/AboutPage.async";
+import {MainPageAsync} from "../pages/MainPage/MainPage.async";
+import {Theme, ThemeContext} from "./styles/theme/ThemeContext";
+import {useTheme} from "./styles/theme/useTheme";
 
 const App = () => {
+  const{ theme, toggleTheme } = useTheme()
+
     return (
-        <div className='app'>
-            app
-            <div className={s.btn}>
-                dasdsadasdsa
-            </div>,
+        <div className={`app ${theme}`}>
+            <button onClick={toggleTheme}> TOGGLE</button>
+            <Link to='/'>
+                Main
+            </Link>
+            <Link to='/about'>
+                About
+            </Link>
+  <Suspense fallback={<div> Loading....</div>}>
+      <Routes>
+          <Route path={'/about'} element={<AboutPageAsync/>} />
+          <Route path={'/'} element={<MainPageAsync/>} />
+      </Routes>
+  </Suspense>
         </div>
     );
 };
